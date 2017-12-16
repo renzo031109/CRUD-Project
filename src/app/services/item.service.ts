@@ -35,4 +35,10 @@ export class ItemService {
     this.itemDoc.delete();
   }
 
+  updateItem(item: Item) {
+    this.itemDoc = this.afs.doc(`items/${item.id}`);
+    this.itemDoc.update(item);
+
+  }
+
 }

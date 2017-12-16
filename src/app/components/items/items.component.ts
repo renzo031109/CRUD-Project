@@ -9,6 +9,9 @@ import { Item } from '../../models/items';
 })
 export class ItemsComponent implements OnInit {
   items: Item[];
+  editState: boolean = false;
+  itemToEdit: Item;
+
 
   constructor(private itemService: ItemService) { }
 
@@ -17,8 +20,24 @@ export class ItemsComponent implements OnInit {
 
   }
 
-  deleteItem(event, item){
+  deleteItem(event, item: Item){
+    this.clearState()
     this.itemService.deleteItem(item);
+  }
+
+  editItem(event, item: Item) {
+    this.editState = true;
+    this.itemToEdit = item
+  }
+
+  clearState() {
+    this.editState = false;
+    this.itemToEdit = null;
+  }
+
+  updateItem(item: Item) {
+    this.itemService.updateItem(item);
+    this.editState = false;
   }
 
 }
